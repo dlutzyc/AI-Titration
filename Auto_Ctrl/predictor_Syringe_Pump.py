@@ -12,7 +12,7 @@ import json
 import serial
 
 
-def get_picture(frame):  # 获取照片
+def get_picture(frame, typ=0):  # 获取照片
 
     # 捕获一帧的数据
     # ret, frame = cap.read()
@@ -24,11 +24,14 @@ def get_picture(frame):  # 获取照片
     # 数据帧写入图片中
     label = "1"
     timeStamp = 1381419600
-    image_name = str(int(time.time())) + ".jpg"
+    if typ:
+        image_name = str(int(time.time())) + ".jpg"
+    else:
+        image_name = "PH" + str(int(time.time())) + ".jpg"
     # 照片存储位置
     filepath = "Input/" + image_name  # 改成跟上面一样的位置
     str_name = filepath.replace('%s', label)
-    cv2.imwrite(str_name, frame)    # 将照片保存起来
+    cv2.imwrite(str_name, frame)  # 将照片保存起来
 
     return image_name
 
@@ -41,7 +44,7 @@ def start_move_1(ser):  # 抽取原料
     data = b"q4h0d"  # 转0分钟
     ser.write(data)
     time.sleep(0.01)
-    data = b"q5h30d"  # 转30秒
+    data = b"q5h50d"  # 转30秒
     ser.write(data)  # 合计抽取12ml
     time.sleep(0.01)
     data = b"q6h3d"  # 抽取
@@ -83,6 +86,7 @@ def read_number_new(filepath):
     img_path = filepath
     result = ocr.ocr(img_path, cls=True)
     print('-----------------------------------------')
+    print(result)
     ans = []
     for line in result:
         if line:
@@ -90,7 +94,7 @@ def read_number_new(filepath):
                 # print(line1[-1])
                 # print(line1[-1][0])
                 try:
-                    ans.append(int(line1[-1][0]))
+                    ans.append(float(line1[-1][0]))
                 except:
                     continue
     print(ans)
@@ -102,31 +106,40 @@ filename = "bottle."
 model_type = "vit_b"
 device = "cuda"
 count = 0
-port_pump = "COM7"  # 蠕动泵串口名，根据实际情况修改
-port_pico = "COM8"  # 蠕动泵串口名，根据实际情况修改
+port_pump = "COM8"  # 蠕动泵串口名，根据实际情况修改
+# port_pico = "COM8"  # 蠕动泵串口名，根据实际情况修改
 baudrate = 9600  # 波特率，根据实际情况修改
 pump_ser = serial.Serial(port_pump, baudrate)
 # pico_ser = serial.Serial(port_pico, baudrate)
 start_move_1(pump_ser)
-videoSourceIndex = 0    # 摄像机编号，请根据自己的情况调整
+videoSourceIndex = 0  # 摄像机编号，请根据自己的情况调整
+videoSourceIndex_1 = 2  # 摄像机编号，请根据自己的情况调整
 cap = cv2.VideoCapture(videoSourceIndex, cv2.CAP_DSHOW)  # 打开摄像头
+cap_1 = cv2.VideoCapture(videoSourceIndex_1, cv2.CAP_DSHOW)  # 打开摄像头2
 # 是否用GPU
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
-# start_move_2(pump_ser)  # 开启慢滴状态
+start_move_2(pump_ser)  # 开启慢滴状态
 # 循环开始之前需要一个变量来记录初始状态 比如说就叫color_type
 total_valume = 0
 valume_list = []
 voltage_list = []
-
+color_list = []
+n = 15
 while True:
     start_move_2(pump_ser)  # 开启慢滴状态
     total_valume += 0.1
     # 读取图片
     ret, frame = cap.read()
+    ret_1, frame_1 = cap_1.read()
     name = get_picture(frame)
+    name_1 = f'{get_picture(frame_1, 1)}'
+
     # 图片完整路径
     im_file = 'Input/' + name
+    im_file_1 = 'Input/' + name_1
     cv2.imshow('Frame', frame)
+    cv2.waitKey(1)
+    cv2.imshow('Frame', frame_1)
     cv2.waitKey(1)
     # 使用PIL库打开图片
     image = Image.open(im_file)
@@ -155,7 +168,7 @@ while True:
     model = resnet34(num_classes=2).to(device)  # 根据分类数量修改
 
     # load model weights
-    weights_path = "./resnet34-1Net.pth"  # 根据实际需要使用的模型名称修改
+    weights_path = "./resnet5-15Net.pth"  # 根据实际需要使用的模型名称修改
     assert os.path.exists(weights_path), "file: '{}' dose not exist.".format(weights_path)
     model.load_state_dict(torch.load(weights_path, map_location=device))
 
@@ -178,15 +191,20 @@ while True:
     print(class_a)
     print(prob_b)
     valume_list.append(total_valume)
-    voltage_list.append(read_number_new(im_file))
+    print(read_number_new(im_file_1))
+    color_list.append(class_a + str(prob_b))
+    voltage_list.append(read_number_new(im_file_1)[0])
     if class_a == "orange":  # 判断终点
+        n += -1
+    if n <= 0:  # 判断终点
         # 关闭阀门
-        start_move_3(pump_ser)
+        # start_move_3(pump_ser)
         print('----->>End<<-----')
         print(im_file)
         time.sleep(1)
         # 释放摄像头
         cap.release()
+        cap_1.release()
         # 关闭所有OpenCV窗口
         cv2.destroyAllWindows()
         break
@@ -197,3 +215,4 @@ while True:
 
 print(valume_list)
 print(voltage_list)
+print(color_list)

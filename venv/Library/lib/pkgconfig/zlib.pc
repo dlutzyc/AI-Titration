@@ -1,0 +1,13 @@
+prefix=F:/ZincPython/AI-Titration/venv/Library
+exec_prefix=F:/ZincPython/AI-Titration/venv/Library
+libdir=F:/ZincPython/AI-Titration/venv/Library/lib
+sharedlibdir=F:/ZincPython/AI-Titration/venv/Library/lib
+includedir=F:/ZincPython/AI-Titration/venv/Library/include
+
+Name: zlib
+Description: zlib compression library
+Version: 1.2.13
+
+Requires:
+Libs: -L${libdir} -L${sharedlibdir} -lz
+Cflags: -I${includedir}
