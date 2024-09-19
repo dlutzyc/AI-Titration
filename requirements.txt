@@ -1,0 +1,8 @@
+tensorflow==2.4.1
+numpy==1.19.5
+torch==1.7.1
+Pillow==8.1.0
+scikit-learn==0.24.1
+opencv-python==4.5.1.48
+pyautogui==0.9.52
+pyserial==3.5

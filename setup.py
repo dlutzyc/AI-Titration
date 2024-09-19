@@ -19,7 +19,7 @@ setup(
         'scikit-learn',
         'opencv-python',
         'pyautogui',
-        'serial'
+        'pyserial'
     ],
     # 其他有用的元数据选项
     description='A package for reporting similar items',  # 简短的描述
