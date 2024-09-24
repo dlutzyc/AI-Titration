@@ -2,7 +2,7 @@
 ## Mlabs AI Titration 1.0
 ## **[慕乐网络科技(大连)有限公司, MoolsNet](https://www.mools.net/)**
 
-![Logo](assets/组合logo.png?raw=true)
+![Logo](assets/组合logo.png)
 
 ### 本软件推荐使用的软件及其版本为：
 
@@ -77,4 +77,7 @@ macOS/Linux:
 
 串口指令如下
 
-![指令](assets/指令.png?raw=true)
+![指令](assets/指令.png)
+
+最后，常见问题汇总于在线文档中  
+[基于计算机视觉的AI滴定装置v1.0常见问题汇总](https://docs.qq.com/doc/p/f0b3afed047ae2c418a5427989ba32c43678aaf1)
