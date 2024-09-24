@@ -53,8 +53,8 @@ Windows:
 `venv\Scripts\activate`  
 macOS/Linux:  
 `source venv/bin/activate`  
-激活后，你的命令行提示符会发生变化，显示当前虚拟环境的名称（例如(venv)），表明你现在正在该虚拟环境中工作。
-![assets/虚拟环境.jpg](assets/虚拟环境.jpg)
+激活后，你的命令行提示符会发生变化，显示当前虚拟环境的名称（例如(venv)），表明你现在正在该虚拟环境中工作。  
+![assets/虚拟环境.jpg](assets/虚拟环境.jpg)  
 3.使用requirements.txt安装依赖  
 确保你的项目目录中有一个requirements.txt文件，该文件列出了项目所需的所有Python包及其版本。然后，在激活的虚拟环境中，运行以下命令来安装这些依赖：  
 `pip install -r requirements.txt`  
