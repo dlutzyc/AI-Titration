@@ -12,15 +12,15 @@ import json
 import serial
 
 
-def get_picture():  # 获取照片
+def get_picture(frame):  # 获取照片
 
     # 捕获一帧的数据
-    ret, frame = cap.read()
+    # ret, frame = cap.read()
     if frame is None:
         print(frame)
-    if ret:
-        # 默认不阻塞
-        cv2.imshow("picture", frame)
+    # if ret:
+    #     # 默认不阻塞
+    #     cv2.imshow("picture", frame)
     # 数据帧写入图片中
     label = "1"
     timeStamp = 1381419600
@@ -33,7 +33,11 @@ def get_picture():  # 获取照片
     return image_name
 
 
-def start_move_1(port, baudrate):  # 快速加酸程序
+def start_move_1():  # 快速加酸程序
+
+    port = "COM5"  # 串口名，根据实际情况修改
+    baudrate = 9600  # 波特率，根据实际情况修改
+
     ser = serial.Serial(port, baudrate)
     data = b"q1h16d"  # 每分钟转16圈
     ser.write(data)
@@ -49,7 +53,11 @@ def start_move_1(port, baudrate):  # 快速加酸程序
     ser.close()
 
 
-def start_move_2(port, baudrate):  # 缓慢加酸程序
+def start_move_2():  # 缓慢加酸程序
+
+    port = "COM5"  # 串口名，根据实际情况修改
+    baudrate = 9600  # 波特率，根据实际情况修改
+
     ser = serial.Serial(port, baudrate)
     data = b"q1h15d"  # 每分钟转6圈，每秒0.1圈
     ser.write(data)
@@ -63,10 +71,11 @@ def start_move_2(port, baudrate):  # 缓慢加酸程序
     ser.close()
 
 
-def start_move_3(port, baudrate):  # 停止加酸程序
+def start_move_3():  # 停止加酸程序
+    port = "COM5"  # 串口名，根据实际情况修改
+    baudrate = 9600  # 波特率，根据实际情况修改
+
     ser = serial.Serial(port, baudrate)
-    data = b"q1h15d"  # 每分钟转6圈，每秒0.1圈
-    ser.write(data)
     time.sleep(0.01)
     data = b"q5h1d"  # 转1秒
     ser.write(data)
@@ -77,31 +86,60 @@ def start_move_3(port, baudrate):  # 停止加酸程序
     ser.close()
 
 
+def read_number_new(self, filepath, types):
+    from paddleocr import PaddleOCR, draw_ocr
+
+    # 创建一个OCR实例，配置语言为中文
+    ocr = PaddleOCR(use_angle_cls=True, lang="ch")
+
+    # 对图片进行OCR识别
+    img_path = filepath
+    result = ocr.ocr(img_path, cls=True)
+    print('-----------------------------------------')
+
+    ans = []
+    for line in result:
+        for line1 in line:
+            # print(line1[-1])
+            # print(line1[-1][0])
+            try:
+                ans.append(int(line1[-1][0]))
+            except:
+                continue
+
+    print(ans)
+    return ans
+
+
 def main():
     output_dir = "Output"
     filename = "bottle."
     model_type = "vit_b"
     device = "cuda"
     count = 0
-    port = "COM3"  # 串口名，根据实际情况修改
-    baudrate = 9600  # 波特率，根据实际情况修改
     # # 快速滴加过程，这里请自己根据滴加量优化
-    # start_move_1(port, baudrate)
-    # time.sleep(15)
-    videoSourceIndex = 1  # 摄像机编号，请根据自己的情况调整
+    # while count < 14:
+    #     start_move_1()
+    #     time.sleep(3)
+    #     count += 1
+    # if count == 13:
+    #     break
+    videoSourceIndex = 0  # 摄像机编号，请根据自己的情况调整
     cap = cv2.VideoCapture(videoSourceIndex, cv2.CAP_DSHOW)  # 打开摄像头
-    name = get_picture()  # 获取照片
-    # image_file = 'Input/M8RoIA3V.jpg'  # 测试时使用的指定照片作为输入
-    im_file = 'Input/' + name
-    image = cv2.imread(im_file)
     # 是否用GPU
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
-    start_move_2(port, baudrate)  # 开启慢滴状态
+    # start_move_2()  # 开启慢滴状态
+    # 循环开始之前需要一个变量来记录初始状态 比如说就叫color_type
+    color_type = "colorless"
+
     while True:
         # 读取图片
-        name = get_picture()
+        ret, frame = cap.read()
+        name = get_picture(frame)
         # 图片完整路径
         im_file = 'Input/' + name
+        cv2.imshow('Frame', frame)
+        cv2.waitKey(1)
         # 使用PIL库打开图片
         image = Image.open(im_file)
         # print(type(image)) # 打印图片的类型
@@ -152,9 +190,10 @@ def main():
         # 打印预测的类别和概率
         print(class_a)
         print(prob_b)
-        if class_a == "orange" and prob_b >= 0.5:  # 到达滴定终点
+
+        if class_a != color_type:  # 颜色不同
             # 关闭阀门
-            start_move_3(port, baudrate)
+            # start_move_3()
             print('----->>End<<-----')
             print(im_file)
             time.sleep(1)
@@ -162,9 +201,9 @@ def main():
             cap.release()
             # 关闭所有OpenCV窗口
             cv2.destroyAllWindows()
-
+            color_type = "orange"
             break
-        time.sleep(1)  # 拍照间隔
+        time.sleep(.5)  # 拍照间隔
 
 
 if True:
