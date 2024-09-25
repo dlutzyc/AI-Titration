@@ -2,7 +2,7 @@
 ## Mlabs AI Titration 1.0
 ## **[慕乐网络科技(大连)有限公司, MoolsNet](https://www.mools.net/)**
 
-![Logo](assets/组合logo.png?raw=true)
+![Logo](assets/组合logo.png)
 
 ### 本软件推荐使用的软件及其版本为：
 
@@ -53,8 +53,8 @@ Windows:
 `venv\Scripts\activate`  
 macOS/Linux:  
 `source venv/bin/activate`  
-激活后，你的命令行提示符会发生变化，显示当前虚拟环境的名称（例如(venv)），表明你现在正在该虚拟环境中工作。
-![assets/虚拟环境.jpg](assets/虚拟环境.jpg)
+激活后，你的命令行提示符会发生变化，显示当前虚拟环境的名称（例如(venv)），表明你现在正在该虚拟环境中工作。  
+![assets/虚拟环境.jpg](assets/虚拟环境.jpg)  
 3.使用requirements.txt安装依赖  
 确保你的项目目录中有一个requirements.txt文件，该文件列出了项目所需的所有Python包及其版本。然后，在激活的虚拟环境中，运行以下命令来安装这些依赖：  
 `pip install -r requirements.txt`  
@@ -77,4 +77,7 @@ macOS/Linux:
 
 串口指令如下
 
-![指令](assets/指令.png?raw=true)
+![指令](assets/指令.png)
+
+最后，常见问题汇总于在线文档中  
+[基于计算机视觉的AI滴定装置v1.0常见问题汇总](https://docs.qq.com/doc/p/f0b3afed047ae2c418a5427989ba32c43678aaf1)
