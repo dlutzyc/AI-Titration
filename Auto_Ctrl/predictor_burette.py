@@ -12,7 +12,7 @@ import json
 import serial
 
 
-def get_picture():  # 获取照片
+def get_picture(cap):  # 获取照片
 
     # 捕获一帧的数据
     ret, frame = cap.read()
@@ -90,16 +90,16 @@ def main():
     # time.sleep(15)
     videoSourceIndex = 1  # 摄像机编号，请根据自己的情况调整
     cap = cv2.VideoCapture(videoSourceIndex, cv2.CAP_DSHOW)  # 打开摄像头
-    name = get_picture()  # 获取照片
+    # name = get_picture()  # 获取照片
     # image_file = 'Input/M8RoIA3V.jpg'  # 测试时使用的指定照片作为输入
-    im_file = 'Input/' + name
-    image = cv2.imread(im_file)
+    # im_file = 'Input/' + name
+    # image = cv2.imread(im_file)
     # 是否用GPU
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
     start_move_2(port, baudrate)  # 开启慢滴状态
     while True:
         # 读取图片
-        name = get_picture()
+        name = get_picture(cap)
         # 图片完整路径
         im_file = 'Input/' + name
         # 使用PIL库打开图片
