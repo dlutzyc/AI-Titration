@@ -13,7 +13,7 @@
 [PyCharm](https://www.jetbrains.com/pycharm/download/?section=windows#section=windows)  
 [PyCharm 安装教程-CSDN博客](https://blog.csdn.net/qq_44809707/article/details/122501118)
 
-[Anaconda](exe/Anaconda3-2024.02-1-Windows-x86_64.exe)  
+[Anaconda](https://repo.anaconda.com/archive/Anaconda3-2024.06-1-Windows-x86_64.exe)  
 [最新 Anaconda3 的安装配置及使用教程-CSDN博客](https://blog.csdn.net/qq_43674360/article/details/123396415)  
 [在 PyCharm 中配置使用 Anaconda 环境-CSDN博客](https://blog.csdn.net/TuckX/article/details/115681862)
 
