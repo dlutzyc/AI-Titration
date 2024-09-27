@@ -39,7 +39,7 @@ def main():
     # 获取数据集的根路径
     data_root = os.path.abspath(os.path.join(os.getcwd(), "../.."))
     # 拼接出图片数据集的路径
-    image_path = os.path.join(data_root, "Automatic_Titration_Control\\Picture_Train", "data")
+    image_path = os.path.join(data_root, "AI-Titration\\Picture_Train", "data")
     # 断言图片数据集路径存在
     assert os.path.exists(image_path), "{} path does not exist.".format(image_path)
 
@@ -88,7 +88,7 @@ def main():
     # 定义模型名称
     model_name = "3_Color_Model_"
     # 实例化ResNet34模型，并设置输出类别数为3
-    net = resnet34(num_classes=3)
+    net = resnet34(num_classes=2)
     # 将模型移动到指定的设备上（CPU或GPU）
     net.to(device)
     # 定义损失函数为交叉熵损失

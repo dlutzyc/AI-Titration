@@ -88,7 +88,7 @@ def main():
     # # 快速滴加过程，这里请自己根据滴加量优化
     # start_move_1(port, baudrate)
     # time.sleep(15)
-    videoSourceIndex = 1  # 摄像机编号，请根据自己的情况调整
+    videoSourceIndex = 0  # 摄像机编号，请根据自己的情况调整
     cap = cv2.VideoCapture(videoSourceIndex, cv2.CAP_DSHOW)  # 打开摄像头
     # name = get_picture()  # 获取照片
     # image_file = 'Input/M8RoIA3V.jpg'  # 测试时使用的指定照片作为输入
