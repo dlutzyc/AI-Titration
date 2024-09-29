@@ -13,7 +13,6 @@ import serial
 
 
 def get_picture(cap):  # 获取照片
-
     # 捕获一帧的数据
     ret, frame = cap.read()
     if frame is None:
@@ -21,6 +20,7 @@ def get_picture(cap):  # 获取照片
     if ret:
         # 默认不阻塞
         cv2.imshow("picture", frame)
+        cv2.waitKey(1)
     # 数据帧写入图片中
     label = "1"
     timeStamp = 1381419600
@@ -29,7 +29,6 @@ def get_picture(cap):  # 获取照片
     filepath = "Input/" + image_name  # 改成跟上面一样的位置
     str_name = filepath.replace('%s', label)
     cv2.imwrite(str_name, frame)    # 将照片保存起来
-
     return image_name
 
 
