@@ -8,18 +8,21 @@
 
 ### 本软件推荐使用的软件及其版本为：
 
-[Python3.10.11(64-bit)](https://www.python.org/ftp/python/3.10.11/python-3.10.11-amd64.exe)   
+### [Python3.10.11(64-bit)](https://www.python.org/ftp/python/3.10.11/python-3.10.11-amd64.exe)   
 [Python3.10.11(32-bit)](https://www.python.org/ftp/python/3.10.11/python-3.10.11.exe)  
 [Python 安装教程（新手）-CSDN博客](https://blog.csdn.net/qq_45502336/article/details/109531599)
 
-[PyCharm](https://www.jetbrains.com/pycharm/download/?section=windows#section=windows)  
+### [PyCharm](https://www.jetbrains.com/pycharm/download/?section=windows#section=windows)  
 [PyCharm 安装教程-CSDN博客](https://blog.csdn.net/qq_44809707/article/details/122501118)
 
-[Anaconda](https://repo.anaconda.com/archive/Anaconda3-2024.06-1-Windows-x86_64.exe)  
+### [Anaconda](https://repo.anaconda.com/archive/Anaconda3-2024.06-1-Windows-x86_64.exe)  
 [最新 Anaconda3 的安装配置及使用教程-CSDN博客](https://blog.csdn.net/qq_43674360/article/details/123396415)  
 [在 PyCharm 中配置使用 Anaconda 环境-CSDN博客](https://blog.csdn.net/TuckX/article/details/115681862)
 
-[CUDA]()
+### [CUDA](https://developer.nvidia.com/cuda-toolkit-archive)  
+[cuDNN](https://developer.nvidia.com/cudnn-downloads)  
+[CUDA安装教程](https://blog.csdn.net/m0_45447650/article/details/123704930)  
+[如何使用CUDA编译Torch](https://blog.csdn.net/qq_46941656/article/details/119701547)
 
 这个软件包提供的是示例程序，理论上大家直接执行也可以完成整个滴定控制过程，但是我们还是希望大家可以发挥自己的创造力和奇思妙想，选用不同的控制方式、神经网络等
 
