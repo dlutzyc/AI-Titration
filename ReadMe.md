@@ -4,6 +4,8 @@
 
 ![Logo](assets/组合logo.png)
 
+### [常见问题汇总](https://docs.qq.com/doc/DWmxGckJNdU1yTWhC)
+
 ### 本软件推荐使用的软件及其版本为：
 
 [Python3.10.11(64-bit)](https://www.python.org/ftp/python/3.10.11/python-3.10.11-amd64.exe)   
@@ -16,6 +18,8 @@
 [Anaconda](https://repo.anaconda.com/archive/Anaconda3-2024.06-1-Windows-x86_64.exe)  
 [最新 Anaconda3 的安装配置及使用教程-CSDN博客](https://blog.csdn.net/qq_43674360/article/details/123396415)  
 [在 PyCharm 中配置使用 Anaconda 环境-CSDN博客](https://blog.csdn.net/TuckX/article/details/115681862)
+
+[CUDA]()
 
 这个软件包提供的是示例程序，理论上大家直接执行也可以完成整个滴定控制过程，但是我们还是希望大家可以发挥自己的创造力和奇思妙想，选用不同的控制方式、神经网络等
 
@@ -79,5 +83,9 @@ macOS/Linux:
 
 ![指令](assets/指令.png)
 
-最后，常见问题汇总于在线文档中  
-[基于计算机视觉的AI滴定装置v1.0常见问题汇总](https://docs.qq.com/doc/p/f0b3afed047ae2c418a5427989ba32c43678aaf1)
+更新日志：  
+Update @ 2024/09/30
+1.更新了`Auto_Ctrl/predictor_burette.py`文件，使得照片可以正常显示。  
+方法简述：在`cv2.imshow("picture", frame)`或类似代码后添加代码`cv2.waitKey(1)`，使得照片等待一秒后再刷新  
+2.`ReadMe.md`文件更新，添加CUDA安装链接以及配置的帮助链接  
+3.添加在线文档汇总了常见的问题，大家遇到问题可以先去查看文档、尝试解决。
